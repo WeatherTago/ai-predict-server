@@ -78,10 +78,10 @@ def predict(data: WeatherInput):
     # 모델 예측
     try:
         features = [[
-            int(data.line), data.TMP, data.VEC, data.WSD,
+            int(data.line), data.direction, data.TMP, data.VEC, data.WSD,
             data.PCP, data.REH, data.SNO,
             year, month, day, hour,
-            discomfort, weekend, season, data.direction
+            discomfort, weekend, season
         ]]
         predicted_value = model.predict(features)[0]
     except Exception as e:
