@@ -13,7 +13,6 @@ app = FastAPI()
 MODEL_PATH = "congestion_model.pkl"
 DRIVE_URL = "https://drive.google.com/uc?id=1qvNZj4GdIRxyrxdvlkMlj7IVd4QGsFjQ" #pkl
 
-
 # 입력 데이터 모델
 class WeatherInput(BaseModel):
     line: str
