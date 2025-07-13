@@ -11,7 +11,8 @@ app = FastAPI()
 
 # 모델 파일 경로 & Google Drive 공유 링크
 MODEL_PATH = "congestion_model.pkl"
-DRIVE_URL = "https://drive.google.com/uc?id=1qvNZj4GdIRxyrxdvlkMlj7IVd4QGsFjQ" #pkl
+DRIVE_URL = "https://drive.google.com/uc?id=13wMzAIHPCo4I_VpWk1GA5K2a60q1X4Fx"  # pkl
+
 
 # 입력 데이터 모델
 class WeatherInput(BaseModel):
