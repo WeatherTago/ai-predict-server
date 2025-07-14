@@ -136,8 +136,14 @@ import json  # 추가됨
 app = FastAPI()
 
 # 모델 파일 경로 & 혼잡도 기준 파일
-MODEL_PATH = "congestion_model.pkl"
-THRESHOLD_PATH = "congestion_thresholds.json"
+# MODEL_PATH = "congestion_model.pkl"
+# THRESHOLD_PATH = "congestion_thresholds.json"
+# DRIVE_URL = "https://drive.google.com/uc?id=13wMzAIHPCo4I_VpWk1GA5K2a60q1X4Fx"
+
+# 모델 및 기준 경로 설정
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))  # 현재 py 파일 기준 경로
+MODEL_PATH = os.path.join(BASE_DIR, "congestion_model.pkl")
+THRESHOLD_PATH = os.path.join(BASE_DIR, "congestion_thresholds.json")
 DRIVE_URL = "https://drive.google.com/uc?id=13wMzAIHPCo4I_VpWk1GA5K2a60q1X4Fx"
 
 # 입력 데이터 모델
