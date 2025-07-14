@@ -38,7 +38,7 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd ai-predict-server
-            git pull origin dev
+            git pull 
             sudo docker stop weathertago-ai-server || true
             sudo docker rm -f weathertago-ai-server || true
             sudo docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/weathertago-ai-server:${{ env.TAG }} .
