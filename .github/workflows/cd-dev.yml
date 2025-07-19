@@ -41,8 +41,8 @@ jobs:
             git pull 
             sudo docker stop weathertago-ai-server || true
             sudo docker rm -f weathertago-ai-server || true
-            sudo docker build -t ${{ secrets.DOCKER_HUB_USERNAME }}/weathertago-ai-server:${{ env.TAG }} .
-            sudo docker run -d --name weathertago-ai-server -p 8000:8000 ${{ secrets.DOCKER_HUB_USERNAME }}/weathertago-ai-server:${{ env.TAG }}
+            sudo docker build -t weathertago-ai-server:${{ env.TAG }} .
+            sudo docker run -d --name weathertago-ai-server -p 8000:8000 weathertago-ai-server:${{ env.TAG }}
         env:
           ACTIONS_RUNNER_DEBUG: true
 
