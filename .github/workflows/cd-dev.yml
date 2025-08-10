@@ -1,57 +1,57 @@
-name: CD - Dev
+# name: CD - Dev
 
-on:
-  workflow_dispatch:
-  push:
-    branches:
-      - dev
+# on:
+#   workflow_dispatch:
+#   push:
+#     branches:
+#       - dev
 
-jobs:
-  build:
-    name: Build & Push Docker Image
-    runs-on: ubuntu-latest
+# jobs:
+#   build:
+#     name: Build & Push Docker Image
+#     runs-on: ubuntu-latest
 
-    steps:
-      - name: Discord Notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        uses: Ilshidur/action-discord@master
-        with:
-          args:
-            '📈 AI predict 서버 배포 시작'
+#     steps:
+#       - name: Discord Notification
+#         env:
+#           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+#         uses: Ilshidur/action-discord@master
+#         with:
+#           args:
+#             '📈 AI predict 서버 배포 시작'
 
-      # 코드 체크아웃
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
+#       # 코드 체크아웃
+#       - name: Checkout repository
+#         uses: actions/checkout@v2
+#         with:
+#           fetch-depth: 0
 
-      - name: Set Docker Tag
-        id: vars
-        run: echo "TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
+#       - name: Set Docker Tag
+#         id: vars
+#         run: echo "TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
-      - name: SSH to EC2 and deploy
-        uses: appleboy/ssh-action@v1.2.0
-        with:
-          host: ${{ secrets.EC2_HOST }}
-          username: ${{ secrets.EC2_USER }}
-          key: ${{ secrets.EC2_SSH_KEY }}
-          script: |
-            cd ai-predict-server
-            git pull 
-            sudo docker stop weathertago-ai-server || true
-            sudo docker rm -f weathertago-ai-server || true
-            sudo docker build -t weathertago-ai-server:${{ env.TAG }} .
-            sudo docker run -d --name weathertago-ai-server -p 8000:8000 weathertago-ai-server:${{ env.TAG }}
-        env:
-          ACTIONS_RUNNER_DEBUG: true
+#       - name: SSH to EC2 and deploy
+#         uses: appleboy/ssh-action@v1.2.0
+#         with:
+#           host: ${{ secrets.EC2_HOST }}
+#           username: ${{ secrets.EC2_USER }}
+#           key: ${{ secrets.EC2_SSH_KEY }}
+#           script: |
+#             cd ai-predict-server
+#             git pull 
+#             sudo docker stop weathertago-ai-server || true
+#             sudo docker rm -f weathertago-ai-server || true
+#             sudo docker build -t weathertago-ai-server:${{ env.TAG }} .
+#             sudo docker run -d --name weathertago-ai-server -p 8000:8000 weathertago-ai-server:${{ env.TAG }}
+#         env:
+#           ACTIONS_RUNNER_DEBUG: true
 
 
-      - name: Discord Notification
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        uses: Ilshidur/action-discord@master
-        with:
-          args:
-            '😎 AI predict 서버 배포 완료됨'
+#       - name: Discord Notification
+#         env:
+#           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+#         uses: Ilshidur/action-discord@master
+#         with:
+#           args:
+#             '😎 AI predict 서버 배포 완료됨'
 
